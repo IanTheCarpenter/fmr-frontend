@@ -16,6 +16,44 @@ export default function LineGraph(props) {
 
   const [graphData, setGraphData] = useState(null)
 
+  const requiredHourlyWageFormula = (rent) => {
+
+    // multiply the rent by 3 to get the monthly income needed to afford comfortably
+    // divide by the 160 hours worked in a normal month to get the 
+
+    const rawCalculation = (rent * 3) / 160
+    
+
+
+    return Math.round(Math.round(rawCalculation * 100)) / 100
+  }
+
+  const buildGraphData = (rawData) => {
+    const years = Object.keys(rawData)
+
+    let output = {
+      labels: years.map((year) => year.slice(1)).reverse(),
+      datasets: []
+    }
+    
+    const apartmentTypes = Object.keys(rawData[Object.keys(rawData)[0]])
+
+    apartmentTypes.forEach(apartmentType => {
+      let apartmentTypeHistoricalPrices = {
+        label: apartmentType,
+        data: []
+      }
+      years.forEach(year => {
+        apartmentTypeHistoricalPrices.data.push(requiredHourlyWageFormula(rawData[year][apartmentType]))
+      })
+      apartmentTypeHistoricalPrices.data = apartmentTypeHistoricalPrices.data.reverse()
+      output.datasets.push(apartmentTypeHistoricalPrices)
+    });
+
+    return output
+  }
+
+
   useEffect(() => {
 
     if (zipCode){
@@ -29,31 +67,7 @@ export default function LineGraph(props) {
             console.log(currentFMRData)
             // process api response here
             const years = Object.keys(currentFMRData.data).map((year) => year.slice(1))
-            setGraphData({
-              labels: years,
-              datasets: [
-                {
-                label: "Efficiency",
-                data: Object.values(currentFMRData.data).map(i => i['Efficiency']).reverse()
-              },
-              {
-                label: "One-Bedroom",
-                data: Object.values(currentFMRData.data).map(i => i['One-Bedroom']).reverse()
-              },
-              {
-                label: "Two-Bedroom",
-                data: Object.values(currentFMRData.data).map(i => i['Two-Bedroom']).reverse()
-              },
-              {
-                label: "Three-Bedroom",
-                data: Object.values(currentFMRData.data).map(i => i['Three-Bedroom']).reverse()
-              },
-              {
-                label: "Four-Bedroom",
-                data: Object.values(currentFMRData.data).map(i => i['Four-Bedroom']).reverse()
-              }
-              ]
-            })
+            setGraphData(buildGraphData(currentFMRData.data))
           })
         }
         else {
@@ -62,46 +76,9 @@ export default function LineGraph(props) {
         }
         })
       .catch(error => setAPIError(error.toString()))
-      // .then(currentFMRData => {
-      //   console.log(currentFMRData)
-      //   // process api response here
-      //   const years = Object.keys(currentFMRData.data).map((year) => year.slice(1))
-      //   setGraphData({
-      //     labels: years,
-      //     datasets: [
-      //       {
-      //       label: "Efficiency",
-      //       data: Object.values(currentFMRData.data).map(i => i['Efficiency']).reverse()
-      //     },
-      //     {
-      //       label: "One-Bedroom",
-      //       data: Object.values(currentFMRData.data).map(i => i['One-Bedroom']).reverse()
-      //     },
-      //     {
-      //       label: "Two-Bedroom",
-      //       data: Object.values(currentFMRData.data).map(i => i['Two-Bedroom']).reverse()
-      //     },
-      //     {
-      //       label: "Three-Bedroom",
-      //       data: Object.values(currentFMRData.data).map(i => i['Three-Bedroom']).reverse()
-      //     },
-      //     {
-      //       label: "Four-Bedroom",
-      //       data: Object.values(currentFMRData.data).map(i => i['Four-Bedroom']).reverse()
-      //     }
-      //     ]
-      //   })
-      // })
-
     }
   }, [zipCode])
 
-  //   const request_options = {
-  //     method: 'GET',
-  //     headers: {
-  //         Authorization: "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI2IiwianRpIjoiMTI3MTVmNDkwNTIwYjRiMDIxMmJlYmUzMmUzNmNlM2I3MDMxMmVlNGJmMDZkNDkwOTM0OGNhZThkM2QzNGRmMTU3ZjdmYjBmNTVjZTkyYzUiLCJpYXQiOjE3MTExNDA0NzkuNDkxNTE0LCJuYmYiOjE3MTExNDA0NzkuNDkxNTE2LCJleHAiOjIwMjY2NzMyNzkuNDg2NTk5LCJzdWIiOiI2NTMwMiIsInNjb3BlcyI6W119.ESx6ruYDCddetERjOlZVd93HJtnR7pwA4Lftz4TSZHx9YTurWN3b3g1S0uOWAHDkNRYFYsvOJFWgNhApCSEN8A"
-  //     }
-  // }
 
 console.log(nothingSelectedYet)
   if (apiError) {
