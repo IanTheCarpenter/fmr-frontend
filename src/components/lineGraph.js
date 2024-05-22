@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import {Line} from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 import { Chart, registerables} from "chart.js";
 Chart.register(...registerables)
+
+
+import { URL } from '../env_vars'
 
 export default function LineGraph(props) {
   const {
@@ -12,7 +15,6 @@ export default function LineGraph(props) {
   const [apiError, setAPIError] = useState(false)
   const lineChartConfig = {
   }
-  const URL = "http://localhost:3001/api/v1/ziplookup"
 
   const [graphData, setGraphData] = useState(null)
 

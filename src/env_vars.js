@@ -1,4 +1,3 @@
 module.exports = {
-    URL: "www.placeholder.fake",
-    PORT: 10905
+    URL: "fmr-backend.vercel.app",
 }
