@@ -61,7 +61,6 @@ export default function LineGraph(props) {
       .then(res => {
         if (res.ok) {
           res.json().then(currentFMRData => {
-            console.log(currentFMRData)
             // process api response here
             const years = Object.keys(currentFMRData.data).map((year) => year.slice(1))
             setGraphData(buildGraphData(currentFMRData.data))
@@ -76,8 +75,6 @@ export default function LineGraph(props) {
     }
   }, [zipCode])
 
-
-console.log(nothingSelectedYet)
   if (apiError) {
     return <p>Error Fetching data: {apiError}</p>
   }

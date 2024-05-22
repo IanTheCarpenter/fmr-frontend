@@ -14,14 +14,12 @@ export default function ZipcodeMenu(componentProperties) {
 
   const onZipCodeInputFieldEdit = (event) => {
     if (event.target.value.length === 5) {
-      console.log('valid')
       setInputZipCode(event.target.value)
       setValidZip(true)
       setIsWarningMessageHidden(true)
       
     }
     else {
-      console.log('invalid')
       setValidZip(false) 
     }
   }

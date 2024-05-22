@@ -35,7 +35,6 @@ function App() {
   
   useEffect(() => {
     if (currentZipCode) {
-      console.log(`MAIN: changed zip to: ${currentZipCode}`)
       setNothingSelectedYet(false)
     }
   },[currentZipCode])
