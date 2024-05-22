@@ -17,14 +17,9 @@ export default function LineGraph(props) {
   const [graphData, setGraphData] = useState(null)
 
   const requiredHourlyWageFormula = (rent) => {
-
     // multiply the rent by 3 to get the monthly income needed to afford comfortably
-    // divide by the 160 hours worked in a normal month to get the 
-
+    // divide by the 160 hours worked in a normal month to get the required hourly rate
     const rawCalculation = (rent * 3) / 160
-    
-
-
     return Math.round(Math.round(rawCalculation * 100)) / 100
   }
 
