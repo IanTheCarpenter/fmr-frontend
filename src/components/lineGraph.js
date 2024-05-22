@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2'
+import { URL } from '../env_vars'
 import { Chart, registerables} from "chart.js";
 Chart.register(...registerables)
 
 
-import { URL } from '../env_vars'
 
 export default function LineGraph(props) {
   const {

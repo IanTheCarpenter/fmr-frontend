@@ -53,7 +53,7 @@ function App() {
         </div>
 
         <div class="mainGraph">
-          <h2>This is a chart, wow</h2>
+          <h2>Look at this graph</h2>
           <LineGraph nothingSelectedYet={nothingSelectedYet} zipCode={currentZipCode} data={data}/>
         </div>
       </>
