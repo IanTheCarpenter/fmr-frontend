@@ -1,0 +1,5 @@
+TODO:
+- Add description 
+- Make current year the main focus
+- Bigger zip code entry bar
+- Create tooltip that explains the formula
