@@ -1,16 +1,45 @@
 .mainGraph {
-    width: 120vh;
-    max-width: 1000px;
-    min-width: 500px;
+    width: 80vw;
     margin-left: auto;
     margin-right: auto;
 }
-.menu {
-    width: 120vh;
-    max-width: 1000px;
-    min-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+
+.inputBar {
+    padding-bottom: 2vh;
+    text-align: center;
+}
+.number {
+    text-align: center;
+}
+
+
+.sideBySide {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.description {
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    text-align: left;
+    width: 25vw;
+}
+.results {
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    width: 25vw;
+}
+.extra-padding{
+    width: 5vw;
+}
+.divider {
+    width: 2px;
+    background-color: black;
+}
+
+.mainTitle {
+    text-align: center;
 }
 .warningText {
     color: red;

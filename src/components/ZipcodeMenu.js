@@ -8,7 +8,7 @@ export default function ZipcodeMenu(componentProperties) {
   } = componentProperties
   
   const [validZip, setValidZip] = useState(false)
-  const [isWarningMessageHidden, setIsWarningMessageHidden] = useState(true)
+  const [messageText, setMessageText] = useState(' ')
   const [inputZipCode, setInputZipCode] = useState(null)
 
 
@@ -16,7 +16,7 @@ export default function ZipcodeMenu(componentProperties) {
     if (event.target.value.length === 5) {
       setInputZipCode(event.target.value)
       setValidZip(true)
-      setIsWarningMessageHidden(true)
+      setMessageText(" ")
       
     }
     else {
@@ -29,21 +29,21 @@ export default function ZipcodeMenu(componentProperties) {
      setCurrentZipCode(inputZipCode) 
     }
     else{
-      setIsWarningMessageHidden(false)
+      setMessageText("Please Enter a Valid Zip")
     }
   }
 
   
   return (
-    <div>
+    <div class='inputBar'>
 
       <input 
         type='number' 
         onChange={onZipCodeInputFieldEdit}
       ></input>
       <button onClick={handleUpdateZipCode} type='submit'>Check</button>
-      <div hidden={isWarningMessageHidden} class='warningText'>
-        Please Enter a Valid Zip
+      <div class='warningText'>
+        {messageText}
       </div>
     </div>
   )

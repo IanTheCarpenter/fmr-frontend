@@ -1,59 +1,98 @@
 import {useEffect, useState} from 'react'
 import './App.css';
 
-import db from './data/zipcodes_database_v2.json'
 import LineGraph from './components/lineGraph'
 import ZipCodeMenu from './components/ZipcodeMenu'
+import Results from './components/results'
+import Description from './components/description';
+import { URL } from './env_vars'
 
-// this is where we'd get the data 
-// const currentFMRData = db[0]
-
-const BASE_URL = 'http://localhost:3001/api/v1/ziplookup/'
 
 
 function App() {
-  const [nothingSelectedYet, setNothingSelectedYet] = useState(true)
   const [currentZipCode, setCurrentZipCode] = useState(null)
   const [data, setData] = useState({
     labels: ["years"],
     datasets: [{label:"null", data:[1,2,3]}]
   })
 
-
-  // useEffect(() => {
-  //   if (currentZipCode) {
-  //     console.log(`FETCHING DATA FOR ZIP: ${currentZipCode}`)
-  //     fetch(`${BASE_URL}/${currentZipCode}`)
-  //       .then(response => response.json())
-  //       .then(fmrRawData => setData({
-  //         labels: ['Years']
-
-  //       })))
-  //       .catch(error => console.error(error)) 
-  //   }
-  // },[currentZipCode])
+  const [apiError, setApiError] = useState(false)
   
-  useEffect(() => {
-    if (currentZipCode) {
-      setNothingSelectedYet(false)
-    }
-  },[currentZipCode])
 
+  const buildGraphData = (rawData) => {
+    const years = Object.keys(rawData)
+
+    let output = {
+      labels: years.map((year) => year.slice(1)).reverse(),
+      datasets: []
+    }
+    
+    const apartmentTypes = Object.keys(rawData[Object.keys(rawData)[0]])
+
+    apartmentTypes.forEach(apartmentType => {
+      let apartmentTypeHistoricalPrices = {
+        label: apartmentType,
+        data: []
+      }
+      years.forEach(year => {
+        apartmentTypeHistoricalPrices.data.push(requiredHourlyWageFormula(rawData[year][apartmentType]))
+      })
+      apartmentTypeHistoricalPrices.data = apartmentTypeHistoricalPrices.data.reverse()
+      output.datasets.push(apartmentTypeHistoricalPrices)
+    });
+
+    return output
+  }
+
+  const requiredHourlyWageFormula = (rent) => {
+    // multiply the rent by 3 to get the monthly income needed to afford comfortably
+    // divide by the 160 hours worked in a normal month to get the required hourly rate
+    const rawCalculation = (rent * 3) / 160
+    return Math.round(Math.round(rawCalculation * 100)) / 100
+  }
+
+  useEffect(() => {
+    if (currentZipCode){
+      setApiError(false)
+      console.log(`GRAPH: fetching data...`)
+      setData(null)
+      fetch(`${URL}/${currentZipCode}`)
+      .then(res => {
+        if (res.ok) {
+          res.json().then(currentFMRData => {
+            // process api response here
+            const years = Object.keys(currentFMRData.data).map((year) => year.slice(1))
+            setData(buildGraphData(currentFMRData.data))
+          })
+        }
+        else {
+          console.log(`FETCH ERROR: ${res.status}`)
+          setApiError(res.status)
+        }
+        })
+      .catch(error => setApiError(error.toString()))
+    }
+  }, [currentZipCode])
 
     return (
       <> 
-        <div class="menu">
-          <h1>Rent Prices by Zip</h1> 
+        <div>
+          <h1 class="mainTitle">Family Wage Calculator</h1> 
           <ZipCodeMenu 
             value={currentZipCode}
             setCurrentZipCode={setCurrentZipCode}
           />
-
         </div>
-
+        <div class='sideBySide'>
+          <Description/>
+          <div class="extra-padding"></div>
+          <div class='divider'></div>
+          <div class="extra-padding"></div>
+          <Results zipCode={currentZipCode} apiError={apiError} data={data}/>
+        </div>
         <div class="mainGraph">
           <h2>Look at this graph</h2>
-          <LineGraph nothingSelectedYet={nothingSelectedYet} zipCode={currentZipCode} data={data}/>
+          <LineGraph zipCode={currentZipCode} data={data}/>
         </div>
       </>
     );
