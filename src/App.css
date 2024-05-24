@@ -1,22 +1,79 @@
-.mainGraph {
-    width: 80vw;
+.gradientBackground{
+    
+    display: flex;
+    align-content: center;
+}
+.background {
+    background: linear-gradient(rgb(82, 56, 250), rgb(82, 56, 250),rgb(82, 56, 250));
+    height: 120vh;
     margin-left: auto;
     margin-right: auto;
+
+}
+
+.mainGraph {
+    width: 80vw;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60vw;
+    max-height: 40vh;
 }
 
 .inputBar {
-    padding-bottom: 2vh;
-    text-align: center;
-}
-.number {
-    text-align: center;
+    height: auto;
+    width: 50vw;
+    margin: auto;
+    padding-bottom: 4vh;
+    border-radius: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
 }
 
+.inputField {
+    height: 3vh;
+    width: 30vw;
+    justify-content: center;
+    padding-right: 5vw;
+    border-radius: 10px;
+    margin-right: 10px;
+    font-size: 2.5vh;
+}
+
+.checkButton {
+    background-color: orange;
+    width: 3vw;
+    height: 3vw;
+    min-height: 30px;
+    min-width: 30px;
+    border-radius: 30px
+}
+
+.answer{
+    display: flex;
+
+    justify-content: center;
+    color: rgb(250, 181, 0);
+}
+
+.bigLetters {
+    font-size: 6vw;
+    font-family: sans-serif ;
+}
+
+.littleLetters {
+    margin-top: 2dvh;
+    font-size: 3vw;
+    font-family: sans-serif ;
+}
 
 .sideBySide {
     display: flex;
     text-align: center;
     justify-content: center;
+    padding-bottom: 4vh;
+    color: white
 }
 
 .description {
@@ -25,22 +82,35 @@
     text-align: left;
     width: 25vw;
 }
+
 .results {
     padding-top: 3vh;
     padding-bottom: 3vh;
     width: 25vw;
 }
+
 .extra-padding{
     width: 5vw;
 }
+
 .divider {
-    width: 2px;
-    background-color: black;
+    display: flex;
+    width: 10vw;
+    justify-content: center;
+}
+
+.dividerLine {
+    width: 5px;
+    border-radius: 5px;
+    background-color: rgb(56, 224, 250);
+    justify-content: center;
 }
 
 .mainTitle {
+    padding-top: 2vh;
     text-align: center;
 }
+
 .warningText {
     color: red;
 }

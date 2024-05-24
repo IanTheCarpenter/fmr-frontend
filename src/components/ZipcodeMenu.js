@@ -36,15 +36,22 @@ export default function ZipcodeMenu(componentProperties) {
   
   return (
     <div class='inputBar'>
+      <div>
+        <div>
+          <input 
+            type='numeric'
+            class='inputField'
+            onChange={onZipCodeInputFieldEdit}
+            >
+          </input>
+        <button class='checkButton' onClick={handleUpdateZipCode} type='submit'>Go</button>
+        </div>
 
-      <input 
-        type='number' 
-        onChange={onZipCodeInputFieldEdit}
-      ></input>
-      <button onClick={handleUpdateZipCode} type='submit'>Check</button>
-      <div class='warningText'>
-        {messageText}
+          <div class='warningText'>
+            {messageText}
+          </div>
       </div>
+
     </div>
   )
 }

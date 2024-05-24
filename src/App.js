@@ -13,12 +13,12 @@ function App() {
   const [currentZipCode, setCurrentZipCode] = useState(null)
   const [data, setData] = useState({
     labels: ["years"],
-    datasets: [{label:"null", data:[1,2,3]}]
+    datasets: [{label:"placeholder", data:[1,2,3]}]
   })
 
   const [apiError, setApiError] = useState(false)
+  const [answer, setAnswer] = useState('--')
   
-
   const buildGraphData = (rawData) => {
     const years = Object.keys(rawData)
 
@@ -51,6 +51,8 @@ function App() {
     return Math.round(Math.round(rawCalculation * 100)) / 100
   }
 
+  useEffect(()=>{setApiError(apiError)}, [apiError])
+
   useEffect(() => {
     if (currentZipCode){
       setApiError(false)
@@ -60,8 +62,9 @@ function App() {
       .then(res => {
         if (res.ok) {
           res.json().then(currentFMRData => {
-            // process api response here
-            const years = Object.keys(currentFMRData.data).map((year) => year.slice(1))
+            setAnswer(requiredHourlyWageFormula(currentFMRData.data[Object.keys(currentFMRData.data)[0]][
+              'One-Bedroom'
+            ]))
             setData(buildGraphData(currentFMRData.data))
           })
         }
@@ -75,26 +78,24 @@ function App() {
   }, [currentZipCode])
 
     return (
-      <> 
-        <div>
-          <h1 class="mainTitle">Family Wage Calculator</h1> 
-          <ZipCodeMenu 
-            value={currentZipCode}
-            setCurrentZipCode={setCurrentZipCode}
-          />
-        </div>
+      <div class='background'> 
+        <h1 class="mainTitle">Family Wage Calculator</h1> 
+        <ZipCodeMenu 
+          value={currentZipCode}
+          setCurrentZipCode={setCurrentZipCode}
+        />
         <div class='sideBySide'>
           <Description/>
-          <div class="extra-padding"></div>
-          <div class='divider'></div>
-          <div class="extra-padding"></div>
-          <Results zipCode={currentZipCode} apiError={apiError} data={data}/>
+          <div class='divider'>
+            <div class='dividerLine'></div>
+          </div>
+          <Results zipCode={currentZipCode} answer={answer} data={data}/>
         </div>
         <div class="mainGraph">
           <h2>Look at this graph</h2>
-          <LineGraph zipCode={currentZipCode} data={data}/>
+          <LineGraph zipCode={currentZipCode} data={data} apiError={apiError}/>
         </div>
-      </>
+      </div>
     );
 }
 export default App;
