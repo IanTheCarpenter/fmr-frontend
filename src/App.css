@@ -1,79 +1,137 @@
-.gradientBackground{
-    
-    display: flex;
-    align-content: center;
+:root {
+    font-size: 1.3em;
+    --hero-color: #f2f200;
+    --bg-color: #0000f2;
+    --accent-color: #f2f200;
+    --text-color: white;
+    --main-font: dosis-bold;
+
+    --inputbar-height-calculation: 3vmax;
+    --shadow-attributes: .15em .15em black;
+    --big-shadow-attributes: .1em .1em black
 }
+
+
+
+@font-face {
+    font-family: dosis;
+    src: url(../public/fonts/Dosis-Regular.ttf);
+}
+@font-face {
+    font-family: dosis-bold;
+    src: url(../public/fonts/Dosis-ExtraBold.ttf);
+}
+
 .background {
-    background: linear-gradient(rgb(82, 56, 250), rgb(82, 56, 250),rgb(82, 56, 250));
-    height: 120vh;
+    background: var(--bg-color);
+    height: 100vmax;
     margin-left: auto;
     margin-right: auto;
+    padding-top: 1px;
 
 }
 
 .mainGraph {
-    width: 80vw;
+    color: black;
+    width: 100vmax;
+    aspect-ratio: 16/9;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    max-width: 60vw;
-    max-height: 40vh;
+    max-width: 80vw;
+    max-height: 80vh;
+    border-radius: 1vw;
+    box-shadow: var(--shadow-attributes);
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+
+    font-family: var(--main-font);
+    background-color: var(--text-color);
+}
+.chartCanvas {
+    max-height: fit-content;
 }
 
 .inputBar {
     height: auto;
-    width: 50vw;
     margin: auto;
-    padding-bottom: 4vh;
     border-radius: 30px;
     height: 30px;
     display: flex;
     justify-content: center;
+    font-family: var(--main-font);
 }
 
 .inputField {
-    height: 3vh;
+    height: var(--inputbar-height-calculation);
     width: 30vw;
     justify-content: center;
-    padding-right: 5vw;
-    border-radius: 10px;
-    margin-right: 10px;
-    font-size: 2.5vh;
+    margin-right: var(--inputbar-height-calculation);
+    margin-left: calc(var(--inputbar-height-calculation)*2);
+
+    text-align: center;
+    border-radius: 3vh;
+    border-color: black;
+    box-shadow: var(--shadow-attributes);
+    font-size: calc(var(--inputbar-height-calculation) * .5);
+    
+    font-family: var(--main-font);
+    background-color: white;
 }
 
 .checkButton {
-    background-color: orange;
-    width: 3vw;
-    height: 3vw;
-    min-height: 30px;
-    min-width: 30px;
-    border-radius: 30px
+    background-color: var(--accent-color);
+    width: var(--inputbar-height-calculation);
+    height: var(--inputbar-height-calculation);
+    min-height: 40px;
+    min-width: 40px;
+    border-radius: max(3vw, 3vh);
+    font-family: var(--main-font);
+    font-size: max(10px, calc(var(--inputbar-height-calculation)*.4));
+    box-shadow: var(--shadow-attributes);
 }
 
 .answer{
     display: flex;
-
+    align-items: baseline;
     justify-content: center;
-    color: rgb(250, 181, 0);
+    color: var(--hero-color);
 }
 
 .bigLetters {
-    font-size: 6vw;
-    font-family: sans-serif ;
+    font-size: 7vw;
+    font-family: var(--main-font) ;
+    text-shadow: var(--big-shadow-attributes);
+}
+
+.slash {
+    padding-top: 3vh;
+    font-size: 4vw;
+    font-family: var(--main-font);
+    text-shadow: var(--shadow-attributes);
+
 }
 
 .littleLetters {
-    margin-top: 2dvh;
     font-size: 3vw;
-    font-family: sans-serif ;
+    font-family: var(--main-font);
+    text-shadow: var(--shadow-attributes);
+    
+}
+
+canvas {
+    height: 5px;
 }
 
 .sideBySide {
+    height: 25vmax;
     display: flex;
     text-align: center;
     justify-content: center;
-    padding-bottom: 4vh;
-    color: white
+    padding-bottom: 5vmax;
+    padding-top: 5vmax;
+    font-family: var(--main-font);
+    text-shadow: var(--shadow-attributes);
 }
 
 .description {
@@ -81,9 +139,11 @@
     padding-bottom: 3vh;
     text-align: left;
     width: 25vw;
+    color: var(--text-color);
 }
 
 .results {
+    color: var(--text-color);
     padding-top: 3vh;
     padding-bottom: 3vh;
     width: 25vw;
@@ -100,17 +160,23 @@
 }
 
 .dividerLine {
-    width: 5px;
+    width : 5px;
     border-radius: 5px;
-    background-color: rgb(56, 224, 250);
+    background-color: var(--accent-color);
     justify-content: center;
+    box-shadow: var(--shadow-attributes);
 }
 
 .mainTitle {
+    color: var(--text-color);
     padding-top: 2vh;
     text-align: center;
+    font-family: var(--main-font);
+    text-shadow: var(--big-shadow-attributes);
+    
 }
 
 .warningText {
-    color: red;
+    margin-left: calc(var(--inputbar-height-calculation)*2);
+    color: #f27900;
 }

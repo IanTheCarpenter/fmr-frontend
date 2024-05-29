@@ -19,6 +19,7 @@ export default function LineGraph(props) {
   
 
   const lineChartConfig = {
+    responsive: true,
     // backgroundColor: 'rgb(100,1,100)',
     borderWidth: 2.5,
     spanGaps: true,
@@ -45,6 +46,6 @@ export default function LineGraph(props) {
     return <p>Loading data...</p>
   }
   return (
-    <Line data={data} options={lineChartConfig} hidden={true} />
+    <Line class='chartCanvas' data={data} options={lineChartConfig} hidden={true} />
   ) 
 }

@@ -37,7 +37,6 @@ export default function ZipcodeMenu(componentProperties) {
   return (
     <div class='inputBar'>
       <div>
-        <div>
           <input 
             type='numeric'
             class='inputField'
@@ -45,7 +44,6 @@ export default function ZipcodeMenu(componentProperties) {
             >
           </input>
         <button class='checkButton' onClick={handleUpdateZipCode} type='submit'>Go</button>
-        </div>
 
           <div class='warningText'>
             {messageText}
