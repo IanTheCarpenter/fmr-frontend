@@ -5,6 +5,8 @@ import LineGraph from './components/lineGraph'
 import ZipCodeMenu from './components/ZipcodeMenu'
 import Results from './components/results'
 import Description from './components/description';
+import zipToCBSA from './data/zipcodes_to_metrocodes';
+
 import { URL } from './env_vars'
 
 
