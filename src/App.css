@@ -34,6 +34,7 @@
 .mainGraph {
     color: black;
     width: 100vmax;
+    min-width: 620px;
     aspect-ratio: 16/9;
     text-align: center;
     margin-left: auto;
@@ -119,12 +120,13 @@
     
 }
 
-canvas {
+/* canvas {
     height: 5px;
-}
+} */
 
 .sideBySide {
-    height: 25vmax;
+    height: 35vmax;
+    min-height: 500px;
     display: flex;
     text-align: center;
     justify-content: center;
@@ -139,6 +141,7 @@ canvas {
     padding-bottom: 3vh;
     text-align: left;
     width: 25vw;
+    min-width: 250px;
     color: var(--text-color);
 }
 
@@ -147,6 +150,8 @@ canvas {
     padding-top: 3vh;
     padding-bottom: 3vh;
     width: 25vw;
+    min-width: 300px;
+
 }
 
 .extra-padding{
